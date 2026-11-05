@@ -1,9 +1,12 @@
-# Task 2 — API key protected text processor
+# Task 1 — Student API + Streamlit
 
-Install Flask (`pip install flask`) and run `python app.py`. At startup, three random keys appear in the local terminal. Treat them as secrets: send each tester only their key privately; do not put keys in GitHub, video, screenshots or this repository. Restarting the server creates new keys. For a tester:
+Run in separate VS Code terminals from this folder:
 
 ```bash
-curl -X POST http://127.0.0.1:5002/process -H "Content-Type: application/json" -H "X-API-Key: PASTE_KEY_HERE" -d '{"text":"hello api"}'
+python -m venv .venv
+# Windows: .venv\\Scripts\\activate   | macOS/Linux: source .venv/bin/activate
+pip install flask streamlit requests
+python app.py
 ```
 
-Invalid/missing key should return HTTP 401. Avoid sharing the terminal showing real keys in a public demo; show a masked key or separate private testing. For classroom use only, keys live in memory and are not suitable for production.
+Second terminal, activate the same environment and run `streamlit run streamlit_app.py`. Open the URL Streamlit prints. API runs on port 5001; SQLite creates `students.db` automatically. Endpoints: GET/POST `/students`, GET/PUT/DELETE `/students/<id>`.
