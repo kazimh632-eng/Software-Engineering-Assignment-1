@@ -1,9 +1,9 @@
-# Task 2 — API key protected text processor
+# Task 3 — Authentication and authorization
 
-Install Flask (`pip install flask`) and run `python app.py`. At startup, three random keys appear in the local terminal. Treat them as secrets: send each tester only their key privately; do not put keys in GitHub, video, screenshots or this repository. Restarting the server creates new keys. For a tester:
+Demo accounts (change before any sharing): employee / `employee123`; admin / `admin123`. Install Flask and run `python app.py` (port 5003). Login:
 
 ```bash
-curl -X POST http://127.0.0.1:5002/process -H "Content-Type: application/json" -H "X-API-Key: PASTE_KEY_HERE" -d '{"text":"hello api"}'
+curl -X POST http://127.0.0.1:5003/login -H "Content-Type: application/json" -d '{"username":"employee","password":"employee123"}'
 ```
 
-Invalid/missing key should return HTTP 401. Avoid sharing the terminal showing real keys in a public demo; show a masked key or separate private testing. For classroom use only, keys live in memory and are not suitable for production.
+Copy the returned token and use `-H "Authorization: Bearer TOKEN"` for `GET /employees`. Employee token gets 403 for POST/PUT/DELETE; admin token can do CRUD. `POST /employees` JSON example: `{"name":"Sara Ali","department":"HR","email":"sara@example.com"}`. Invalid login or missing token returns 401. This is a small classroom demo using in-memory tokens/data and plain demo passwords; not production authentication.
